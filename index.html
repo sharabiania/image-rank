@@ -61,8 +61,10 @@
 											
 				if(currSet.length == 2) {
 					if(currWinner != null) {
+						winners.push(currWinner);
 						var index = currSet.indexOf(currWinner);
 						currSet.splice(index, 1);
+						console.log(currWinner.tag() + ' is out!');
 						currWinner = null;
 						winners.push(currSet[0]);
 					}
@@ -80,8 +82,10 @@
 
 				if(currSet.length > 2) {
 					if(currWinner != null) {
+						winners.push(currWinner);
 						var index = currSet.indexOf(currWinner);
 						currSet.splice(index, 1);
+						console.log(currWinner.tag() + ' is out!');
 						currWinner = null;
 					}
 					currSet = shuffle(currSet);
@@ -106,7 +110,6 @@
 				imgRight.style.cursor = "default";
 				document.getElementById('btn-reset').hidden = "";
 				title.innerText = title.innerText + ": Winner is " + currWinner.tag();
-				winners.push(currWinner);
 				endFlag = true;
 			}
 	
