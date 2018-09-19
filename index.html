@@ -6,19 +6,22 @@
 		</style>
 	</head>
 	<body>
+		<h1 id='title'></h1>
 		<img id="img-left" width="200" height="100" onclick="leftClick()"/>
 		<img id="img-right" width="200" height="100" onclick="rightClick()"/>
 		<button id="btn-reset" hidden="hidden" onclick="reset()">Restart</button>
-		<table id="table">			
 		</table>
 		<script>
-			const TOTAL = 6;
+			const TOTAL = 5;
 			var imgSet = [];
 			var currSet = [];
+			var winners = [];
+			var currWinner;
 			var imgLeft = document.getElementById("img-left");
 			var imgRight = document.getElementById("img-right");
 			var li = 0, ri = 1;
 			var endFlag = false;
+			var title = document.getElementById('title');
 
 			var img = function(name) {
 				this.name = name;
@@ -28,7 +31,10 @@
 			img.prototype.src = function() {
 				return "images/img_" + this.name + ".jpg";
 			}
-
+			img.prototype.tag = function(){
+				alphabet = "ABCDEFGHIJK";
+				return alphabet.charAt(this.name - 1);
+			}
 
 			function shuffle(a) {
 				var j, x, i;
@@ -47,17 +53,15 @@
 				imgSet.push(new img(i + 1));
 				currSet.push(new img(i +1));
 			}
-			currSet = shuffle(currSet);
-			imgLeft.src = currSet[li].src();
-			imgRight.src = currSet[ri].src();
+			reset();
 			
 			// END initialize.
 
 			function reset() {
+				title.innerText = "Round 1";
 				currSet = shuffle(currSet);
 				imgLeft.src = currSet[0].src();
 				imgRight.src = currSet[1].src();
-				document.getElementById('table').innerHTML = "";
 				imgLeft.style.cursor = "pointer";
 				imgRight.style.cursor = "pointer";
 				document.getElementById('btn-reset').hidden = "hidden";
@@ -67,25 +71,17 @@
 			}
 
 			function end() {
-				if(endFlag) return;
-				for(var i = 0; i < currSet.length; i++) {
-					var tr = document.createElement("tr");
-					var td1 = document.createElement("td");
-					td1.innerText = currSet[i].src();
-					var td2 = document.createElement("td");
-					td2.innerText = currSet[i].rank;
-					tr.appendChild(td1);
-					tr.appendChild(td2);
-					document.getElementById("table").appendChild(tr);				
-					imgLeft.style.cursor = "default";
-					imgRight.style.cursor = "default";
-					document.getElementById('btn-reset').hidden = "";
-				}
+				if(endFlag) return;				
+				imgLeft.style.cursor = "default";
+				imgRight.style.cursor = "default";
+				document.getElementById('btn-reset').hidden = "";
+				title.innerText = title.innerText + ": Winner is " + currWinner.tag();
 				endFlag = true;
 			}
 	
 			function leftClick() {		
 				if(li == currSet.length - 1 || ri == currSet.length - 1)	{
+					currWinner = currSet[li];
 					end();
 					return;
 				}
@@ -93,9 +89,9 @@
 				if(ri < li) ri = li + 1;
 				else ri++;													
 				if(ri < currSet.length) {
-					imgRight.src = currSet[ri].src();
-					currSet[ri].selected = true;
-					currSet[li].rank++;
+					imgRight.src = currSet[ri].src();					
+					currSet[li].rank++;			
+					currWinner = currSet[li];
 				}								
 				else {
 					end();
@@ -105,6 +101,7 @@
 			function rightClick(){
 			
 				if(li == currSet.length - 1 || ri == currSet.length - 1)	{
+					currWinner = currSet[ri];
 					end();
 					return;
 				}
@@ -115,8 +112,8 @@
 
 				if(li < currSet.length) {
 					imgLeft.src = currSet[li].src();
-					currSet[li].selected = true;
 					currSet[ri].rank++;
+					currWinner = currSet[ri];
 				}
 				else {
 					end();
