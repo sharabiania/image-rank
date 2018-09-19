@@ -8,6 +8,7 @@
 	<body>
 		<img id="img-left" width="200" height="100" onclick="leftClick()"/>
 		<img id="img-right" width="200" height="100" onclick="rightClick()"/>
+		<button id="btn-reset" hidden="hidden" onclick="reset()">Restart</button>
 		<table id="table">			
 		</table>
 		<script>
@@ -17,6 +18,7 @@
 			var imgLeft = document.getElementById("img-left");
 			var imgRight = document.getElementById("img-right");
 			var li = 0, ri = 1;
+			var endFlag = false;
 
 			var img = function(name) {
 				this.name = name;
@@ -51,7 +53,21 @@
 			
 			// END initialize.
 
+			function reset() {
+				currSet = shuffle(currSet);
+				imgLeft.src = currSet[0].src();
+				imgRight.src = currSet[1].src();
+				document.getElementById('table').innerHTML = "";
+				imgLeft.style.cursor = "pointer";
+				imgRight.style.cursor = "pointer";
+				document.getElementById('btn-reset').hidden = "hidden";
+				endFlag = false;
+				li = 0;
+				ri = 1;
+			}
+
 			function end() {
+				if(endFlag) return;
 				for(var i = 0; i < currSet.length; i++) {
 					var tr = document.createElement("tr");
 					var td1 = document.createElement("td");
@@ -60,8 +76,12 @@
 					td2.innerText = currSet[i].rank;
 					tr.appendChild(td1);
 					tr.appendChild(td2);
-					document.getElementById("table").appendChild(tr);
+					document.getElementById("table").appendChild(tr);				
+					imgLeft.style.cursor = "default";
+					imgRight.style.cursor = "default";
+					document.getElementById('btn-reset').hidden = "";
 				}
+				endFlag = true;
 			}
 	
 			function leftClick() {		
