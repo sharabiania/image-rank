@@ -8,6 +8,8 @@
 	<body>
 		<img id="img-left" width="200" height="100" onclick="leftClick()"/>
 		<img id="img-right" width="200" height="100" onclick="rightClick()"/>
+		<table id="table">			
+		</table>
 		<script>
 			const TOTAL = 6;
 			var imgSet = [];
@@ -46,35 +48,58 @@
 			currSet = shuffle(currSet);
 			imgLeft.src = currSet[li].src();
 			imgRight.src = currSet[ri].src();
+			
 			// END initialize.
 
-			function selectFromSet() {
-				
-			}
-			
-			function leftClick() {			
-				wi = li;
-				if(ri < currSet.length - 1) {
-					ri++
-					imgRight.src = currSet[ri].src();
-					currSet[li].rank++;
+			function end() {
+				for(var i = 0; i < currSet.length; i++) {
+					var tr = document.createElement("tr");
+					var td1 = document.createElement("td");
+					td1.innerText = currSet[i].src();
+					var td2 = document.createElement("td");
+					td2.innerText = currSet[i].rank;
+					tr.appendChild(td1);
+					tr.appendChild(td2);
+					document.getElementById("table").appendChild(tr);
 				}
+			}
+	
+			function leftClick() {		
+				if(li == currSet.length - 1 || ri == currSet.length - 1)	{
+					end();
+					return;
+				}
+				// choose a new ri
+				if(ri < li) ri = li + 1;
+				else ri++;													
+				if(ri < currSet.length) {
+					imgRight.src = currSet[ri].src();
+					currSet[ri].selected = true;
+					currSet[li].rank++;
+				}								
 				else {
-					console.log('done');
-					console.log(currSet);
+					end();
 				}
 				
 			}
 			function rightClick(){
-				wi = ri;
-				if(li < currSet.length - 1) {
-					li++;
+			
+				if(li == currSet.length - 1 || ri == currSet.length - 1)	{
+					end();
+					return;
+				}
+
+				// choose a new li
+				if(li < ri) li = ri + 1;
+				else li++;
+
+				if(li < currSet.length) {
 					imgLeft.src = currSet[li].src();
+					currSet[li].selected = true;
 					currSet[ri].rank++;
 				}
 				else {
-					console.log('done');
-					console.log(currSet);
+					end();
 				}
 				
 			}
