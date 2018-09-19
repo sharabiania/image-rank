@@ -10,13 +10,14 @@
 		<img id="img-left" width="200" height="100" onclick="leftClick()"/>
 		<img id="img-right" width="200" height="100" onclick="rightClick()"/>
 		<button id="btn-reset" hidden="hidden" onclick="reset()">Restart</button>
-		</table>
+		<table id='table'></table>
+		
 		<script>
 			const TOTAL = 5;
 			var imgSet = [];
 			var currSet = [];
 			var winners = [];
-			var currWinner;
+			var currWinner = null;
 			var imgLeft = document.getElementById("img-left");
 			var imgRight = document.getElementById("img-right");
 			var li = 0, ri = 1;
@@ -26,7 +27,6 @@
 			var img = function(name) {
 				this.name = name;
 				this.selected = false;
-				this.rank = 0;
 			}
 			img.prototype.src = function() {
 				return "images/img_" + this.name + ".jpg";
@@ -58,16 +58,46 @@
 			// END initialize.
 
 			function reset() {
-				title.innerText = "Round 1";
-				currSet = shuffle(currSet);
-				imgLeft.src = currSet[0].src();
-				imgRight.src = currSet[1].src();
-				imgLeft.style.cursor = "pointer";
-				imgRight.style.cursor = "pointer";
-				document.getElementById('btn-reset').hidden = "hidden";
-				endFlag = false;
-				li = 0;
-				ri = 1;
+											
+				if(currSet.length == 2) {
+					if(currWinner != null) {
+						var index = currSet.indexOf(currWinner);
+						currSet.splice(index, 1);
+						currWinner = null;
+						winners.push(currSet[0]);
+					}
+					var table = document.getElementById('table');
+					for(var i = 0; i < winners.length; i++) {
+						var tr = document.createElement('tr');
+						var td = document.createElement('td');					
+						td.innerText = winners[i].tag();
+						tr.appendChild(td);
+						table.appendChild(tr);
+					}
+
+					return;
+				}
+
+				if(currSet.length > 2) {
+					if(currWinner != null) {
+						var index = currSet.indexOf(currWinner);
+						currSet.splice(index, 1);
+						currWinner = null;
+					}
+					currSet = shuffle(currSet);
+					title.innerText = "Round " + (TOTAL - currSet.length + 1);
+					currSet = shuffle(currSet);
+					imgLeft.src = currSet[0].src();
+					imgRight.src = currSet[1].src();
+					imgLeft.style.cursor = "pointer";
+					imgRight.style.cursor = "pointer";
+					document.getElementById('btn-reset').hidden = "hidden";
+					endFlag = false;
+					li = 0;
+					ri = 1;
+					return;
+				}			
+				
 			}
 
 			function end() {
@@ -76,48 +106,41 @@
 				imgRight.style.cursor = "default";
 				document.getElementById('btn-reset').hidden = "";
 				title.innerText = title.innerText + ": Winner is " + currWinner.tag();
+				winners.push(currWinner);
 				endFlag = true;
 			}
 	
 			function leftClick() {		
-				if(li == currSet.length - 1 || ri == currSet.length - 1)	{
-					currWinner = currSet[li];
-					end();
-					return;
-				}
+				currWinner = currSet[li];							
+
 				// choose a new ri
 				if(ri < li) ri = li + 1;
 				else ri++;													
-				if(ri < currSet.length) {
-					imgRight.src = currSet[ri].src();					
-					currSet[li].rank++;			
-					currWinner = currSet[li];
-				}								
-				else {
+				if(ri > currSet.length - 1) {
+					ri = currSet.length - 1;
 					end();
+				}
+				else {			
+					imgRight.src = currSet[ri].src();					
 				}
 				
 			}
 			function rightClick(){
 			
-				if(li == currSet.length - 1 || ri == currSet.length - 1)	{
-					currWinner = currSet[ri];
-					end();
-					return;
-				}
+				currWinner = currSet[ri];
 
 				// choose a new li
 				if(li < ri) li = ri + 1;
 				else li++;
 
-				if(li < currSet.length) {
-					imgLeft.src = currSet[li].src();
-					currSet[ri].rank++;
-					currWinner = currSet[ri];
-				}
-				else {
+				if(li > currSet.length - 1) {
+					li = currSet.length - 1;
 					end();
 				}
+				else{
+					imgLeft.src = currSet[li].src();					
+				}
+				
 				
 			}
 			
