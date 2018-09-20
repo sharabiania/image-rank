@@ -17,9 +17,9 @@
 			<div class="img-magnifier-container">
 				<img id='img-right' width="300" height="200"/>
 			</div>
-<br/>
+			<br/>
 			<button onclick="leftClick()">Left is better</button>
-			<button onclick="leftClick()">Right is better</button>
+			<button onclick="rightClick()">Right is better</button>
 			<table id='table'></table>
 		
 		</div>
@@ -28,8 +28,7 @@
 			const TOTAL_IMAGES = 2;
 			const TOTAL_METHODS = 5;
 			var imgSet = [];
-			for(var i = 0; i < TOTAL_IMAGES; ++i) imgSet.push([]);
-			console.log(imgSet);
+			for(var i = 0; i < TOTAL_IMAGES; ++i) imgSet.push([]);			
 			var currSet = [];
 			var currSetIndex = 0;
 			var winners = [];
@@ -108,6 +107,8 @@
 					}
 					currSet = shuffle(currSet);
 					title.innerText = "Image " + (currSetIndex + 1) + " Round " + (TOTAL_METHODS - currSet.length + 1);					
+					imgLeft.src = "";
+					imgRight.src = "";
 					imgLeft.src = currSet[0].src();
 					imgRight.src = currSet[1].src();								
 					endFlag = false;
@@ -148,7 +149,8 @@
 					ri = currSet.length - 1;
 					end();
 				}
-				else {			
+				else {		
+					imgRight.src = "";	
 					imgRight.src = currSet[ri].src();					
 				}
 				
@@ -166,6 +168,7 @@
 					end();
 				}
 				else{
+					imgLeft.src = "";
 					imgLeft.src = currSet[li].src();					
 				}
 				
