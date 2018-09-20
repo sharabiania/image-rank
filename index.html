@@ -48,6 +48,11 @@
 			imgRight.addEventListener('load',function(){console.log('load finish');buttonPanel.hidden = '';});
 
 
+			function loadImage(el, src){
+				buttonPanel.hidden = 'hidden';
+				el.src = src;
+			}
+
 			var img = function(name, method) {
 				this.name = name;
 				this.method = method;
@@ -115,11 +120,9 @@
 						currWinner = null;
 					}
 					currSet = shuffle(currSet);
-					title.innerText = "Image " + (currSetIndex + 1) + " Round " + (TOTAL_METHODS - currSet.length + 1);					
-					imgLeft.src = "";
-					imgRight.src = "";
-					imgLeft.src = currSet[0].src();
-					imgRight.src = currSet[1].src();								
+					title.innerText = "Image " + (currSetIndex + 1) + " Round " + (TOTAL_METHODS - currSet.length + 1);									
+					loadImage(imgLeft, currSet[0].src());
+					loadImage(imgRight, currSet[1].src());
 					endFlag = false;
 					li = 0;
 					ri = 1;
@@ -159,8 +162,7 @@
 					end();
 				}
 				else {		
-					imgRight.src = "";	
-					imgRight.src = currSet[ri].src();					
+					loadImage(imgRight, currSet[ri].src());					
 				}
 				
 			}
@@ -176,9 +178,8 @@
 					li = currSet.length - 1;
 					end();
 				}
-				else{
-					imgLeft.src = "";
-					imgLeft.src = currSet[li].src();					
+				else{					
+					loadImage(imgLeft, currSet[li].src());	
 				}
 				
 				
