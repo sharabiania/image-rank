@@ -1,21 +1,37 @@
 <html>
 	<head>
 		<style>
-			img {cursor: pointer;}
-			img:hover {border: 2px solid black;}
+			img {border: 1px solid black;}
+			img:hover {border: 1px solid green;}
 		</style>
+		<link href="mg.css" rel="stylesheet" type="text/css"/>
+		<script src="mg.js"></script>
 	</head>
 	<body>
-		<h1 id='title'></h1>
-		<img id="img-left" width="200" height="100" onclick="leftClick()"/>
-		<img id="img-right" width="200" height="100" onclick="rightClick()"/>
-		<button id="btn-reset" hidden="hidden" onclick="reset()">Restart</button>
-		<table id='table'></table>
+		<div style="text-align: center;">
+			<h1 id='title'></h1>
+			
+			<div class="img-magnifier-container">
+				<img id="img-left" width="300" height="200" />		
+			</div>			
+			<div class="img-magnifier-container">
+				<img id='img-right' width="300" height="200"/>
+			</div>
+<br/>
+			<button onclick="leftClick()">Left is better</button>
+			<button onclick="leftClick()">Right is better</button>
+			<table id='table'></table>
+		
+		</div>
 		
 		<script>
-			const TOTAL = 5;
+			const TOTAL_IMAGES = 2;
+			const TOTAL_METHODS = 5;
 			var imgSet = [];
+			for(var i = 0; i < TOTAL_IMAGES; ++i) imgSet.push([]);
+			console.log(imgSet);
 			var currSet = [];
+			var currSetIndex = 0;
 			var winners = [];
 			var currWinner = null;
 			var imgLeft = document.getElementById("img-left");
@@ -24,16 +40,15 @@
 			var endFlag = false;
 			var title = document.getElementById('title');
 
-			var img = function(name) {
+			var img = function(name, method) {
 				this.name = name;
-				this.selected = false;
+				this.method = method;
 			}
 			img.prototype.src = function() {
-				return "images/img_" + this.name + ".jpg";
+				return "images/img" + this.name + this.method + ".png";
 			}
-			img.prototype.tag = function(){
-				alphabet = "ABCDEFGHIJK";
-				return alphabet.charAt(this.name - 1);
+			img.prototype.tag = function(){				
+				return "image " + this.name + " method " + this.method;
 			}
 
 			function shuffle(a) {
@@ -49,16 +64,19 @@
 
 
 			// initialize data set
-			for(var i = 0; i < TOTAL; ++i) {
-				imgSet.push(new img(i + 1));
-				currSet.push(new img(i +1));
+			
+			for(var i = 0; i < TOTAL_IMAGES; ++i) {
+				for(var j = 0; j < TOTAL_METHODS; ++j) {	
+					imgSet[i][j] = new img(i + 1, j + 1);				
+				}
 			}
+			currSet = imgSet[0];
 			reset();
 			
 			// END initialize.
 
 			function reset() {
-											
+		
 				if(currSet.length == 2) {
 					if(currWinner != null) {
 						winners.push(currWinner);
@@ -89,28 +107,35 @@
 						currWinner = null;
 					}
 					currSet = shuffle(currSet);
-					title.innerText = "Round " + (TOTAL - currSet.length + 1);
-					currSet = shuffle(currSet);
+					title.innerText = "Image " + (currSetIndex + 1) + " Round " + (TOTAL_METHODS - currSet.length + 1);					
 					imgLeft.src = currSet[0].src();
-					imgRight.src = currSet[1].src();
-					imgLeft.style.cursor = "pointer";
-					imgRight.style.cursor = "pointer";
-					document.getElementById('btn-reset').hidden = "hidden";
+					imgRight.src = currSet[1].src();								
 					endFlag = false;
 					li = 0;
 					ri = 1;
 					return;
 				}			
 				
+
+			
+
 			}
 
 			function end() {
-				if(endFlag) return;				
-				imgLeft.style.cursor = "default";
-				imgRight.style.cursor = "default";
-				document.getElementById('btn-reset').hidden = "";
+				if(endFlag || currSetIndex >= TOTAL_METHODS) {
+					// Change the data set
+					currSetIndex++;
+					if(currSetIndex >= TOTAL_IMAGES) currSetIndex = 0
+					else {
+						currSet = imgSet[currSetIndex];
+						endFlag = false;
+						reset();
+					}
+					return;										
+				}
 				title.innerText = title.innerText + ": Winner is " + currWinner.tag();
 				endFlag = true;
+				reset();
 			}
 	
 			function leftClick() {		
@@ -146,7 +171,9 @@
 				
 				
 			}
-			
+
+			magnify("img-left", 2);
+			magnify("img-right", 2);
 		</script>
 	</body>
 </html>
