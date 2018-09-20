@@ -18,8 +18,10 @@
 				<img id='img-right' width="300" height="200"/>
 			</div>
 			<br/>
-			<button onclick="leftClick()">Left is better</button>
-			<button onclick="rightClick()">Right is better</button>
+			<div id="panel">
+				<button onclick="leftClick()">Left is better</button>
+				<button onclick="rightClick()">Right is better</button>
+			</div>
 			<table id='table'></table>
 		
 		</div>
@@ -35,9 +37,16 @@
 			var currWinner = null;
 			var imgLeft = document.getElementById("img-left");
 			var imgRight = document.getElementById("img-right");
+			var buttonPanel = document.getElementById('panel');
 			var li = 0, ri = 1;
 			var endFlag = false;
 			var title = document.getElementById('title');
+
+			imgLeft.addEventListener('loadstart', function(){ console.log('load start'); buttonPanel.hidden = 'hidden';});
+			imgRight.addEventListener('loadstart', function(){console.log('load start'); buttonPanel.hidden = 'hidden';});
+			imgLeft.addEventListener('load', function(){console.log('load finish');buttonPanel.hidden = '';});
+			imgRight.addEventListener('load',function(){console.log('load finish');buttonPanel.hidden = '';});
+
 
 			var img = function(name, method) {
 				this.name = name;

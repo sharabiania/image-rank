@@ -22,21 +22,17 @@ function magnify(imgID, zoom) {
   glass.addEventListener("touchmove", moveMagnifier);
   img.addEventListener("touchmove", moveMagnifier);
 
-  img.addEventListener("mouseout", function(){
-    console.log('mouse out');
+  img.addEventListener("mouseout", function(){    
     document.getElementById(divID).style.display = 'none';
   });
-  img.addEventListener("mouseover", function(){
-    console.log('mouse in');
+  img.addEventListener("mouseover", function(){    
     document.getElementById(divID).style.display = 'block';
 
   });
-  glass.addEventListener("mouseout", function(){
-    console.log('mouse out');
+  glass.addEventListener("mouseout", function(){    
     document.getElementById(divID).style.display = 'none';
   });
-  glass.addEventListener("mouseover", function(){
-    console.log('mouse in');
+  glass.addEventListener("mouseover", function(){    
     document.getElementById(divID).style.display = 'block';
 
   });
