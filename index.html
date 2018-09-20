@@ -41,11 +41,9 @@
 			var li = 0, ri = 1;
 			var endFlag = false;
 			var title = document.getElementById('title');
-
-			imgLeft.addEventListener('loadstart', function(){ console.log('load start'); buttonPanel.hidden = 'hidden';});
-			imgRight.addEventListener('loadstart', function(){console.log('load start'); buttonPanel.hidden = 'hidden';});
-			imgLeft.addEventListener('load', function(){console.log('load finish');buttonPanel.hidden = '';});
-			imgRight.addEventListener('load',function(){console.log('load finish');buttonPanel.hidden = '';});
+			
+			imgLeft.addEventListener('load', function(){buttonPanel.hidden = '';});
+			imgRight.addEventListener('load',function(){buttonPanel.hidden = '';});
 
 
 			function loadImage(el, src){
@@ -129,10 +127,7 @@
 					ri = 1;
 					return;
 				}			
-				
-
-			
-
+							
 			}
 
 			function end() {
