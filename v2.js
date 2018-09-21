@@ -5,7 +5,7 @@
 const CONF_TOTAL_IMAGES = 3;
 const CONF_TOTAL_METHODS = 5;
 /** END config */
-const VERSION = '1.5';
+const VERSION = '1.6';
 var qs = new URLSearchParams(window.location.search);
 var TOTAL_IMAGES =  qs.get('i') || CONF_TOTAL_IMAGES;
 var TOTAL_METHODS = qs.get('m') || CONF_TOTAL_METHODS;
@@ -52,10 +52,15 @@ var imgLeft = document.getElementById("img-left");
 var imgRight = document.getElementById("img-right");
 var buttonPanel = document.getElementById('panel');
 var container = document.getElementById('container');
+var progress = document.getElementById('progress');
+progress.max = TOTAL_IMAGES * ((TOTAL_METHODS - 1) * (TOTAL_METHODS))/2;
 document.getElementById('version').innerText = 'version' +  VERSION;
 imgLeft.onload =  function(){if(imgRight.complete) buttonPanel.hidden = '';};
 imgRight.onload = function(){if(imgLeft.complete) buttonPanel.hidden = '';};
 var mglass = new MGlass2("img-left", "img-right", imgLeft.src, imgRight.src, null);
+
+progress.style.width = document.getElementsByClassName('mglass_picture_box')[0].clientWidth;
+
 /** END global vars */
 
 // helpers
@@ -63,7 +68,7 @@ function updateTitle() {
     document.getElementById('title').innerHTML =
     '<h3>Image ' + (currImageIndex + 1) + ' of ' + TOTAL_IMAGES + '</h3>'
     + '<h4> Round ' + (TOTAL_METHODS - currSet.length + 1) + ' of ' 
-    + ((TOTAL_METHODS - 1) * (TOTAL_METHODS))/2 + '</h4>';
+    + (currSet.length - 1) + '</h4>';   
 }
 
 function loadImages(img1, img2){
@@ -148,7 +153,7 @@ function next() {
        
     loadImages(currSet[li], currSet[ri]);
     updateTitle();
-
+    progress.value++;
 
 }
 
