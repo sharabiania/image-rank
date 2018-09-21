@@ -53,6 +53,7 @@ var imgRight = document.getElementById("img-right");
 var buttonPanel = document.getElementById('panel');
 var container = document.getElementById('container');
 var progress = document.getElementById('progress');
+var loadText = document.getElementById('load-txt');
 progress.max = TOTAL_IMAGES * ((TOTAL_METHODS - 1) * (TOTAL_METHODS))/2;
 document.getElementById('version').innerText = 'version' +  VERSION;
 imgLeft.onload =  function(){if(imgRight.complete) 
@@ -63,6 +64,7 @@ imgLeft.onload =  function(){if(imgRight.complete)
             var e = document.getElementById('img-panel');
             e.className = "fade-in";
             e.style.opacity = 1;
+            loadText.style.display = 'none';
         }, 1000);
     }
 };
@@ -73,6 +75,7 @@ imgRight.onload = function(){if(imgLeft.complete) {
         var e = document.getElementById('img-panel');
         e.className = "fade-in";
         e.style.opacity = 1;
+        loadText.style.display = 'none';
 }, 1000);
 }};
 var mglass = new MGlass2("img-left", "img-right", imgLeft.src, imgRight.src, null);
@@ -90,6 +93,7 @@ function updateTitle() {
 }
 
 function loadImages(img1, img2){
+    loadText.style.display = 'block';
     var imgPanel = document.getElementById('img-panel');
     imgPanel.className = "";
     imgPanel.style.opacity = 0;
