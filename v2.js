@@ -34,7 +34,6 @@ var imgLeft = document.getElementById("img-left");
 var imgRight = document.getElementById("img-right");
 var buttonPanel = document.getElementById('panel');
 var container = document.getElementById('container');
-var title = document.getElementById('title');
 imgLeft.onload =  function(){if(imgRight.complete) buttonPanel.hidden = '';};
 imgRight.onload = function(){if(imgLeft.complete) buttonPanel.hidden = '';};
 /** END global vars */
