@@ -12,8 +12,10 @@ var TOTAL_METHODS = qs.get('m') || CONF_TOTAL_METHODS;
 var IMAGE_FOLDER = 'images/';
 var debug = (qs.get('d') == 1);
 
-if(debug)
+if(debug) {
     IMAGE_FOLDER = 'dummy/';
+    document.getElementById('version').style.display = 'block';
+}
 
 /** img Class */
 var img = function(name, method) {
@@ -57,6 +59,13 @@ var mglass = new MGlass2("img-left", "img-right", imgLeft.src, imgRight.src, nul
 /** END global vars */
 
 // helpers
+function updateTitle() {
+    document.getElementById('title').innerHTML =
+    '<h3>Image ' + (currImageIndex + 1) + ' of ' + TOTAL_IMAGES + '</h3>'
+    + '<h4> Round ' + (TOTAL_METHODS - currSet.length + 1) + ' of ' 
+    + ((TOTAL_METHODS - 1) * (TOTAL_METHODS))/2 + '</h4>';
+}
+
 function loadImages(img1, img2){
     var src1 = img1.src();
     var src2 = img2.src();
@@ -98,6 +107,7 @@ currSet = shuffle(currSet);
 
 // 2 - load the first two images
 loadImages(currSet[0], currSet[1]);
+updateTitle();
 
 function finish() {
     finishFlag = true;
@@ -135,10 +145,9 @@ function next() {
         currSet = shuffle(currSet);
     }
 
-    
-   
+       
     loadImages(currSet[li], currSet[ri]);
-    
+    updateTitle();
 
 
 }
