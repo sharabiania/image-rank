@@ -6,14 +6,14 @@ const CONF_TOTAL_IMAGES = 3;
 const CONF_TOTAL_METHODS = 5;
 /** END config */
 const VERSION = '1.5';
-var qs = new URLSearchParams(window.location.search)
+var qs = new URLSearchParams(window.location.search);
 var TOTAL_IMAGES =  qs.get('i') || CONF_TOTAL_IMAGES;
 var TOTAL_METHODS = qs.get('m') || CONF_TOTAL_METHODS;
 var IMAGE_FOLDER = 'images/';
 var debug = (qs.get('d') == 1);
 
 if(debug)
-    IMAGE_FOLDER = 'dummy/'
+    IMAGE_FOLDER = 'dummy/';
 
 /** img Class */
 var img = function(name, method) {
