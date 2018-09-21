@@ -9,11 +9,14 @@
 .mglass_viewer {
 	position: absolute;
 	visibility: hidden;
-	width: 150px; 
-	height: 150px;
+	width: 250px; 
+	height: 250px;
 	z-index: 2;
 	overflow: hidden;	
 
+	border-width: 2px;
+	border-style: solid;
+	border-color: yellow;
 	-moz-border-radius: 75px;
 	-webkit-border-radius: 75px;
 	-khtml-border-radius: 75px;

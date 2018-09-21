@@ -1,7 +1,7 @@
 /**
  * @author Ali Sharabiani
  */
-const VERSION = '1.2';
+const VERSION = '1.3';
 
 /** img Class */
 var img = function(name, method) {
@@ -9,7 +9,7 @@ var img = function(name, method) {
     this.method = method;
 }
 img.prototype.src = function() {
-    return "images/img" + this.name + this.method + ".png";
+    return "images/img" + this.name + '_' + this.method + ".png";
 }
 img.prototype.tag = function(){				
     return "i" + this.name + "_m" + this.method;
@@ -17,7 +17,7 @@ img.prototype.tag = function(){
 /** END img class */
 
 /** Global vars */
-const TOTAL_IMAGES = 2;
+const TOTAL_IMAGES = 3;
 const TOTAL_METHODS = 5;
 var li = 0;
 var ri = 1;
@@ -91,6 +91,7 @@ loadImages(currSet[0], currSet[1]);
 function finish() {
     finishFlag = true;
     var p = document.createElement('p');
+    p.innerHTML += (new Date()).toString() + '<hr/>';
     for(var i = 0; i < winners.length; ++i)
         p.innerHTML += winners[i].tag() + '<br/>';
     container.innerHTML = p.innerHTML;
