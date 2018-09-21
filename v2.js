@@ -35,8 +35,8 @@ var imgRight = document.getElementById("img-right");
 var buttonPanel = document.getElementById('panel');
 var container = document.getElementById('container');
 var title = document.getElementById('title');
-imgLeft.addEventListener('load', function(){buttonPanel.hidden = '';});
-imgRight.addEventListener('load',function(){buttonPanel.hidden = '';});
+imgLeft.onload =  function(){buttonPanel.hidden = '';};
+imgRight.onload = function(){buttonPanel.hidden = '';};
 /** END global vars */
 
 // helpers
@@ -55,8 +55,8 @@ function loadImages(img1, img2){
     
     buttonPanel.hidden = 'hidden';
     imgLeft.src = "";
-    imgLeft.src = src1;
     imgRight.src = "";
+    imgLeft.src = src1;    
     imgRight.src = src2;
 }
 
