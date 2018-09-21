@@ -2,20 +2,21 @@
 	<head>
 		<style>
 			img {border: 1px solid black;background: url(loading.gif) 50% no-repeat;;}
-			img:hover {border: 1px solid green;}
+			img:hover {border: 1px solid green;}	
 		</style>
-		<link href="mg.css" rel="stylesheet" type="text/css"/>
-		<script src="mg.js"></script>
+		<!-- <link href="mg.css" rel="stylesheet" type="text/css"/>
+		<script src="mg.js"></script> -->
+		<link href="mglass.css" rel="stylesheet" type="text/css" />
+		<script src="mglass2.js"></script>
 	</head>
 	<body>		
 		<div id='container' style="text-align: center;">
 			<h3 id='version'>Version 1</h3>			
-			<div class="img-magnifier-container">
-				<img id="img-left" width="300" height="200" />		
-			</div>			
-			<div class="img-magnifier-container">
-				<img id='img-right' width="300" height="200"/>
-			</div>
+		
+				<img id="img-left" width="400" height="300" />		
+	
+				<img id='img-right' width="400" height="300"/>
+		
 			<br/>
 			<div id="panel">
 				<button onclick="leftClick()">Left is better</button>
@@ -25,6 +26,6 @@
 		
 		</div>
 		<script src="v2.js"></script>
-
+		
 	</body>
 </html>

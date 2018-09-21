@@ -1,3 +1,8 @@
+/**
+ * @author Ali Sharabiani
+ */
+const VERSION = '1.2';
+
 /** img Class */
 var img = function(name, method) {
     this.name = name;
@@ -34,9 +39,10 @@ var imgLeft = document.getElementById("img-left");
 var imgRight = document.getElementById("img-right");
 var buttonPanel = document.getElementById('panel');
 var container = document.getElementById('container');
-document.getElementById('version').innerText = 'version 1.1';
+document.getElementById('version').innerText = 'version' +  VERSION;
 imgLeft.onload =  function(){if(imgRight.complete) buttonPanel.hidden = '';};
 imgRight.onload = function(){if(imgLeft.complete) buttonPanel.hidden = '';};
+var mglass = new MGlass2("img-left", "img-right", imgLeft.src, imgRight.src, null);
 /** END global vars */
 
 // helpers
@@ -58,6 +64,7 @@ function loadImages(img1, img2){
     imgRight.src = "";
     imgLeft.src = src1;    
     imgRight.src = src2;
+    mglass.updateSrc(src1, src2);
 }
 
 function shuffle(a) {
