@@ -8,12 +8,14 @@
 				cursor: pointer;
 				font-weight: bolder;
 				font-size: 18px;
+				width: 170px;
 			}
 			button:hover{
 				color: green;
 				border-color: yellowgreen;
 			}
 			.fade-in{transition: opacity 0.5s ease-in-out;}
+			.btn-container {display: inline-block;width:45%;}
 		</style>	
 		<link href="mglass.css" rel="stylesheet" type="text/css" />
 		<script src="mglass2.js"></script>
@@ -31,8 +33,12 @@
 			<br/>
 			
 			<div id="panel">
-				<button onclick="leftClick()">Left is better</button>
-				<button onclick="rightClick()">Right is better</button>
+				<div class="btn-container">
+					<button onclick="leftClick()">Left is better</button>
+				</div>
+				<div class="btn-container">
+					<button onclick="rightClick()">Right is better</button>
+				</div>
 			</div>
 			
 			
