@@ -68,7 +68,7 @@ function updateTitle() {
     document.getElementById('title').innerHTML =
     '<h3>Image ' + (currImageIndex + 1) + ' of ' + TOTAL_IMAGES + '</h3>'
     + '<h4> Round ' + (TOTAL_METHODS - currSet.length + 1) + ' of ' 
-    + (currSet.length - 1) + '</h4>';   
+    + (TOTAL_METHODS - 1) + '</h4>';   
 }
 
 function loadImages(img1, img2){
