@@ -5,7 +5,7 @@
 const CONF_TOTAL_IMAGES = 3;
 const CONF_TOTAL_METHODS = 5;
 /** END config */
-const VERSION = '1.7';
+const VERSION = '1.8';
 var qs = new URLSearchParams(window.location.search);
 var TOTAL_IMAGES =  qs.get('i') || CONF_TOTAL_IMAGES;
 var TOTAL_METHODS = qs.get('m') || CONF_TOTAL_METHODS;
