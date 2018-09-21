@@ -1,7 +1,9 @@
 <html>
 	<head>
 		<style>
-			img {border: 1px solid black;background: url(loading.gif) 50% no-repeat;}				
+			img {
+				border: 1px solid black;background: url(loading.gif) 50% no-repeat;				
+			}				
 			button {padding: 10px; background: none; border: 2px solid black; border-radius: 7px;
 				cursor: pointer;
 				font-weight: bolder;
@@ -11,6 +13,7 @@
 				color: green;
 				border-color: yellowgreen;
 			}
+			.fade-in{transition: opacity 0.5s ease-in-out;}
 		</style>	
 		<link href="mglass.css" rel="stylesheet" type="text/css" />
 		<script src="mglass2.js"></script>
@@ -20,9 +23,11 @@
 			<div id='title'  style="margin:40px;"></div>
 			<small id='version' style="display:none;"></small>					
 			<progress id="progress" value="-1"></progress>
-
-			<img id="img-left"  />			
-			<img id='img-right'/>		
+			
+			<div id="img-panel" style="display: inline-block;">
+				<img id="img-left"  />			
+				<img id='img-right'/>		
+			</div>
 			<br/>
 			
 			<div id="panel">

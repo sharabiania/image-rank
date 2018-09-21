@@ -55,8 +55,26 @@ var container = document.getElementById('container');
 var progress = document.getElementById('progress');
 progress.max = TOTAL_IMAGES * ((TOTAL_METHODS - 1) * (TOTAL_METHODS))/2;
 document.getElementById('version').innerText = 'version' +  VERSION;
-imgLeft.onload =  function(){if(imgRight.complete) buttonPanel.hidden = '';};
-imgRight.onload = function(){if(imgLeft.complete) buttonPanel.hidden = '';};
+imgLeft.onload =  function(){if(imgRight.complete) 
+    {
+       
+        setTimeout(function(){
+            buttonPanel.hidden = ''; 
+            var e = document.getElementById('img-panel');
+            e.className = "fade-in";
+            e.style.opacity = 1;
+        }, 1000);
+    }
+};
+imgRight.onload = function(){if(imgLeft.complete) {
+    
+    setTimeout(function(){
+        buttonPanel.hidden = '';
+        var e = document.getElementById('img-panel');
+        e.className = "fade-in";
+        e.style.opacity = 1;
+}, 1000);
+}};
 var mglass = new MGlass2("img-left", "img-right", imgLeft.src, imgRight.src, null);
 
 progress.style.width = document.getElementsByClassName('mglass_picture_box')[0].clientWidth;
@@ -72,6 +90,9 @@ function updateTitle() {
 }
 
 function loadImages(img1, img2){
+    var imgPanel = document.getElementById('img-panel');
+    imgPanel.className = "";
+    imgPanel.style.opacity = 0;
     var src1 = img1.src();
     var src2 = img2.src();
    if(Math.random()>= 0.5) {   
@@ -84,12 +105,17 @@ function loadImages(img1, img2){
         src2 = temp;
     }
     
-    buttonPanel.hidden = 'hidden';
+    buttonPanel.hidden = 'hidden';    
+    
+   
+    
     imgLeft.src = "";
-    imgRight.src = "";
+    imgRight.src = "";   
     imgLeft.src = src1;    
-    imgRight.src = src2;
+    imgRight.src = src2;    
     mglass.updateSrc(src1, src2);
+   
+    
 }
 
 function shuffle(a) {
@@ -116,11 +142,28 @@ updateTitle();
 
 function finish() {
     finishFlag = true;
+    var text = "";
     var p = document.createElement('p');
     p.innerHTML += (new Date()).toString() + '<hr/>';
-    for(var i = 0; i < winners.length; ++i)
+    for(var i = 0; i < winners.length; ++i) {
+        text += winners[i].method;
+        if(i%TOTAL_METHODS == 1) text+='\r\n';
+        else text += ', ';
         p.innerHTML += winners[i].tag() + '<br/>';
+    }
     container.innerHTML = p.innerHTML;
+
+    // Save file:
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', 'results');
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
 }
 
 function next() {
