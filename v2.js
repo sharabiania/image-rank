@@ -110,10 +110,10 @@ function next() {
                 return;
             }
             else {
-                currSet = imgSet[currImageIndex];
-                currSet = shuffle(currSet);
+                currSet = imgSet[currImageIndex];                
             }
         }               
+        currSet = shuffle(currSet);
     }
 
     
