@@ -1,7 +1,7 @@
 /**
  * @author Ali Sharabiani
  */
-const VERSION = '1.3';
+const VERSION = '1.4';
 
 /** img Class */
 var img = function(name, method) {
