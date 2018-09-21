@@ -1,7 +1,19 @@
 /**
  * @author Ali Sharabiani
  */
-const VERSION = '1.4';
+/** config constants  */
+const CONF_TOTAL_IMAGES = 3;
+const CONF_TOTAL_METHODS = 5;
+/** END config */
+const VERSION = '1.5';
+var qs = new URLSearchParams(window.location.search)
+var TOTAL_IMAGES =  qs.get('i') || CONF_TOTAL_IMAGES;
+var TOTAL_METHODS = qs.get('m') || CONF_TOTAL_METHODS;
+var IMAGE_FOLDER = 'images/';
+var debug = (qs.get('d') == 1);
+
+if(debug)
+    IMAGE_FOLDER = 'dummy/'
 
 /** img Class */
 var img = function(name, method) {
@@ -9,7 +21,7 @@ var img = function(name, method) {
     this.method = method;
 }
 img.prototype.src = function() {
-    return "images/img" + this.name + '_' + this.method + ".png";
+    return IMAGE_FOLDER + "img" + this.name + '_' + this.method + ".png";
 }
 img.prototype.tag = function(){				
     return "i" + this.name + "_m" + this.method;
@@ -17,8 +29,7 @@ img.prototype.tag = function(){
 /** END img class */
 
 /** Global vars */
-const TOTAL_IMAGES = 3;
-const TOTAL_METHODS = 5;
+
 var li = 0;
 var ri = 1;
 var currImageIndex = 0;
