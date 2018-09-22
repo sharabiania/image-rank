@@ -9,8 +9,8 @@
 .mglass_viewer {
 	position: absolute;
 	visibility: hidden;
-	width: 300px; 
-	height: 300px;
+	width: 350px; 
+	height: 350px;
 	z-index: 2;
 	overflow: hidden;	
 	background-color: darkgrey;

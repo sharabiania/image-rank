@@ -5,7 +5,7 @@
 const CONF_TOTAL_IMAGES = 3;
 const CONF_TOTAL_METHODS = 5;
 /** END config */
-const VERSION = '1.9';
+const VERSION = '1.10';
 var qs = new URLSearchParams(window.location.search);
 var TOTAL_IMAGES =  qs.get('i') || CONF_TOTAL_IMAGES;
 var TOTAL_METHODS = qs.get('m') || CONF_TOTAL_METHODS;
@@ -151,7 +151,7 @@ function finish() {
     p.innerHTML += (new Date()).toString() + '<hr/>';
     for(var i = 0; i < winners.length; ++i) {
         text += winners[i].method;
-        if(i%TOTAL_METHODS == 1) text+='\r\n';
+        if((i+1)%(TOTAL_METHODS) == 0) text+='\r\n';
         else text += ', ';
         p.innerHTML += winners[i].tag() + '<br/>';
     }
